@@ -30,23 +30,12 @@ Glitter text is a combination of two elements, text and glitter. Glitter can be 
 
 ## Usage
 
-This is only a README for now, the basic idea though:
+There are 4 required arguments for the glitter text script:
+* `-f` — Font name as it appears in ~/.magick/type.xml
+* `-s` — Font size
+* `-t` — Text to glitter, wrap multiple words in quotes
+* `-g` — Glitter image file
 
-* Create mask image from text
 ```bash
-convert -fill white -background none -font ComicSansMSB \
-	-gravity center -pointsize 72 label:"Glitter Text" mask.gif
-```
-
-* Create tiled background large enough for text
-```bash
-convert background.gif -virtual-pixel tile \
-	-set option:distort:viewport 450x80 -distort SRT 0 \
-	tiled-background.gif
-```
-
-* Apply mask to background
-```bash
-convert tiled-background.gif null: mask.gif -matte \
-	-compose DstIn -layers composite glitter-text.gif
+./bin/glitter_text.sh -f ComicSansMSB -s 72 -t "Glitter Text is Rad" -g background.gif
 ```
