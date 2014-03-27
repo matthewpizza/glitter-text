@@ -99,11 +99,18 @@ output=${text//_/}
 # replace spaces with underscores
 output=${output// /_}
 
-#  alphanumeric or underscore only
+# alphanumeric or underscore only
 output=${output//[^a-zA-Z0-9_]/}
 
 # lowercase
 output=`echo -n $output | tr A-Z a-z`.gif
+
+# Output directory
+processed=$dir/processed
+if [[ ! -d $processed ]]
+then 
+	mkdir $processed
+fi
 
 # Create mask
 convert -fill white -background none -font $font \
@@ -122,7 +129,7 @@ convert $background -virtual-pixel tile \
 # Apply mask to background
 convert $tiled null: $mask -matte \
 	-compose DstIn -layers composite \
-	$output
+	$processed/$output
 
 rm $tiled
 rm $mask

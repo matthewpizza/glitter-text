@@ -35,6 +35,8 @@ Using all arguments:
 ./glitter.sh -f ComicSansMSB -s 72 -t "Glitter Text is Rad" -g images/glitter_blue.gif
 ```
 
+All images are saved into the processed directory.
+
 ## Notes
 
 ### Fonts
