@@ -11,6 +11,11 @@ OPTIONS:
 EOF
 }
 
+# Script DIR
+pushd `dirname $0` > /dev/null
+	DIR="$(dirname `pwd`)"
+popd > /dev/null
+
 # Get arguments
 while getopts "hf:s:t:g:" OPTION
 do
@@ -35,10 +40,28 @@ do
 done
 
 # If arguments aren't present, die
-if [[ -z $FONT ]] || [[ -z $SIZE ]] || [[ -z $TEXT ]] || [[ -z $BACKGROUND ]]
+if [[ -z $TEXT ]]
 then
 	options
 	exit
+fi
+
+# Default Font
+if [[ -z $FONT ]]
+then
+	FONT=ComicSansMSB
+fi
+
+# Default Size
+if [[ -z $SIZE ]]
+then
+	SIZE=72
+fi
+
+# Default Background
+if [[ -z $BACKGROUND ]]
+then
+	BACKGROUND=$(php $DIR/bin/get_random_file.php -d $DIR/glitter)
 fi
 
 # Create mask
@@ -48,8 +71,8 @@ convert -fill white -background none -font $FONT \
 
 # Get mask size
 MASK=mask.gif
-WIDTH=$( identify -format '%w' "$MASK" )
-HEIGHT=$( identify -format '%h' "$MASK" )
+WIDTH=$(identify -format '%w' "$MASK")
+HEIGHT=$(identify -format '%h' "$MASK")
 
 # Create background
 convert $BACKGROUND -virtual-pixel tile \
