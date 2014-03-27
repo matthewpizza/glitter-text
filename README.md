@@ -5,8 +5,8 @@ ImageMagick is cool.
 ## Requirements
 
 * [ImageMagick](http://www.imagemagick.org/)
-	* Install with [Homebrew](http://brew.sh/) `brew install imagemagick`
-* Some knowledge of the command line.
+	* On OS X, install with [Homebrew](http://brew.sh/) `brew install imagemagick`
+* Some knowledge of running script on the command line.
 
 ### Glitter
 
