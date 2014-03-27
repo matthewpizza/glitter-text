@@ -11,79 +11,104 @@ OPTIONS:
 EOF
 }
 
-# Script DIR
+directions() {
+cat << EOF
+Please create list of system font list
+Refer to README on imagick_type_gen.pl usage
+EOF
+}
+
+# Script dir
 pushd `dirname $0` > /dev/null
-	DIR="$(dirname `pwd`)"
+	dir="$(dirname `pwd`)"
 popd > /dev/null
 
 # Get arguments
-while getopts "hf:s:t:g:" OPTION
+while getopts "hf:s:t:g:" option
 do
-	case "$OPTION" in
+	case "$option" in
 		h)
 			options
 			exit
 			;;
 		f)
-			FONT="$OPTARG"
+			font="$optarg"
 			;;
 		s)
-			SIZE="$OPTARG"
+			size="$optarg"
 			;;
 		t)
-			TEXT="$OPTARG"
+			text="$optarg"
 			;;
 		g)
-			BACKGROUND="$OPTARG"
+			background="$optarg"
 			;;
 	esac
 done
 
-# If arguments aren't present, die
-if [[ -z $TEXT ]]
+# If text isn't, die
+if [[ -z $text ]]
 then
 	options
 	exit
 fi
 
+# Try to create font list if doesn't exit
+font_list=~/.magick/type.xml
+system_fonts=/Library/Fonts
+if [[ ! -f "$font_list" ]]; then
+	if [[ ! -d "$system_fonts" ]]
+		then
+		directions
+		exit
+	fi
+
+	# Create font list directory
+	$(mkdir `dirname "$font_list"`)
+
+	# Generate font list
+	$(find $system_fonts -name *.ttf -o -name *.otf | \
+		$dir/bin/imagick_type_gen.pl -f - > $font_list)
+fi
+
 # Default Font
-if [[ -z $FONT ]]
+if [[ -z $font ]]
 then
-	FONT=ComicSansMSB
+	font=ComicSansMSB
 fi
 
 # Default Size
-if [[ -z $SIZE ]]
+if [[ -z $size ]]
 then
-	SIZE=72
+	size=72
 fi
 
 # Default Background
-if [[ -z $BACKGROUND ]]
+if [[ -z $background ]]
 then
-	BACKGROUND=$(php $DIR/bin/get_random_file.php -d $DIR/glitter)
+	background=$(php $dir/bin/get_random_file.php -d $dir/glitter)
 fi
 
 # Create mask
-convert -fill white -background none -font $FONT \
-	-gravity center -pointsize $SIZE label:"$TEXT" \
+convert -fill white -background none -font $font \
+	-gravity center -pointsize $size label:"$text" \
 	mask.gif
 
 # Get mask size
-MASK=mask.gif
-WIDTH=$(identify -format '%w' "$MASK")
-HEIGHT=$(identify -format '%h' "$MASK")
+mask=mask.gif
+width=$(identify -format '%w' "$mask")
+height=$(identify -format '%h' "$mask")
 
 # Create background
-convert $BACKGROUND -virtual-pixel tile \
-	-set option:distort:viewport "$WIDTH"x"$HEIGHT" -distort SRT 0 \
+convert $background -virtual-pixel tile \
+	-set option:distort:viewport "$width"x"$height" -distort SRT 0 \
 	tiled-background.gif
 
 # Apply mask to background
-TILED=tiled-background.gif
-convert $TILED null: $MASK -matte \
+tiled=tiled-background.gif
+convert $tiled null: $mask -matte \
 	-compose DstIn -layers composite \
 	glitter-text.gif
 
-rm $TILED
-rm $MASK
+rm $tiled
+rm $mask
