@@ -32,16 +32,16 @@ do
 			exit
 			;;
 		f)
-			font="$optarg"
+			font="$OPTARG"
 			;;
 		s)
-			size="$optarg"
+			size="$OPTARG"
 			;;
 		t)
-			text="$optarg"
+			text="$OPTARG"
 			;;
 		g)
-			background="$optarg"
+			background="$OPTARG"
 			;;
 	esac
 done
