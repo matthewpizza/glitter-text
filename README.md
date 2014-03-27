@@ -27,12 +27,12 @@ There are four arguments for the glitter text script:
 
 Relying on the defaults:
 ```bash
-./bin/glitter_text.sh -t "Glitter Text is Rad"
+./glitter_text.sh -t "Glitter Text is Rad"
 ```
 
 Using all arguments:
 ```bash
-./bin/glitter_text.sh -f ComicSansMSB -s 72 -t "Glitter Text is Rad" -g glitter_blue.gif
+./glitter_text.sh -f ComicSansMSB -s 72 -t "Glitter Text is Rad" -g glitter_blue.gif
 ```
 
 ## Notes
