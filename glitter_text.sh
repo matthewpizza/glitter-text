@@ -20,7 +20,7 @@ EOF
 
 # Script dir
 pushd `dirname $0` > /dev/null
-	dir="$(dirname `pwd`)"
+	dir=`pwd`
 popd > /dev/null
 
 # Get arguments
