@@ -86,7 +86,7 @@ fi
 # Default Background
 if [[ -z $background ]]
 then
-	background=$(php $dir/bin/get_random_file.php -d $dir/glitter)
+	background=$(php $dir/bin/get_random_file.php -d $dir/images)
 fi
 
 # Create mask
