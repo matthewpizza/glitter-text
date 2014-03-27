@@ -103,7 +103,14 @@ output=${output// /_}
 output=${output//[^a-zA-Z0-9_]/}
 
 # lowercase
-output=`echo -n $output | tr A-Z a-z`.gif
+output=`echo -n $output | tr A-Z a-z`
+
+if [[ -z $output ]]
+then
+	output=image
+fi
+
+output="$output".gif
 
 # Output directory
 processed=$dir/processed
