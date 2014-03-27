@@ -74,7 +74,7 @@ fi
 # Default Font
 if [[ -z $font ]]
 then
-	font=ComicSansMSB
+	font=$(php $dir/bin/get_font.php -d $font_list)
 fi
 
 # Default Size
