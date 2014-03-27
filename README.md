@@ -20,7 +20,7 @@ New glitter can be created and appropriated by many means, but here are two:
 ## Usage
 
 There are four arguments for the glitter text script:
-* `-f` — Font name as it appears in ~/.magick/type.xml
+* `-f` — Font name as it appears in ~/.magick/type.xml (required)
 * `-s` — Font size
 * `-t` — Text to glitter, wrap multiple words in quotes
 * `-g` — Glitter image file
@@ -35,7 +35,7 @@ Using all arguments:
 ./glitter.sh -f ComicSansMSB -s 72 -t "Glitter Text is Rad" -g images/glitter_blue.gif
 ```
 
-All images are saved into the processed directory.
+All images are saved into the **processed** directory.
 
 ## Notes
 
