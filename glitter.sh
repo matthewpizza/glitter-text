@@ -89,26 +89,40 @@ then
 	background=$(php $dir/bin/get_random_file.php -d $dir/images)
 fi
 
+# Variables
+mask=mask.gif
+tiled=tiled-background.gif
+
+# strip underscores
+output=${text//_/}
+
+# replace spaces with underscores
+output=${output// /_}
+
+#  alphanumeric or underscore only
+output=${output//[^a-zA-Z0-9_]/}
+
+# lowercase
+output=`echo -n $output | tr A-Z a-z`.gif
+
 # Create mask
 convert -fill white -background none -font $font \
 	-gravity center -pointsize $size label:"$text" \
-	mask.gif
+	$mask
 
 # Get mask size
-mask=mask.gif
 width=$(identify -format '%w' "$mask")
 height=$(identify -format '%h' "$mask")
 
 # Create background
 convert $background -virtual-pixel tile \
 	-set option:distort:viewport "$width"x"$height" -distort SRT 0 \
-	tiled-background.gif
+	$tiled
 
 # Apply mask to background
-tiled=tiled-background.gif
 convert $tiled null: $mask -matte \
 	-compose DstIn -layers composite \
-	glitter-text.gif
+	$output
 
 rm $tiled
 rm $mask
