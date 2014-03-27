@@ -10,7 +10,7 @@ ImageMagick is cool.
 
 ### Glitter
 
-Glitter text is a combination of two elements, text and glitter. There are a handful of included glitter images included. 
+Glitter text is a combination of two elements, text and glitter. There are a handful of example glitter images included in this repo. 
 
 New glitter can be created and appropriated by many means, but here are two:
 
@@ -19,7 +19,7 @@ New glitter can be created and appropriated by many means, but here are two:
 
 ## Usage
 
-There are 4 arguments for the glitter text script:
+There are four arguments for the glitter text script:
 * `-f` — Font name as it appears in ~/.magick/type.xml
 * `-s` — Font size
 * `-t` — Text to glitter, wrap multiple words in quotes
